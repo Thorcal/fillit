@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: spuisais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/18 11:17:29 by spuisais          #+#    #+#             */
-/*   Updated: 2018/12/18 11:18:14 by spuisais         ###   ########.fr       */
+/*   Created: 2018/12/18 11:17:22 by spuisais          #+#    #+#             */
+/*   Updated: 2018/12/18 12:04:44 by spuisais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,19 @@
 #include "libft/get_next_line.h"
 #include <stdio.h>
 #include <fcntl.h>
-/*
- * char	**create_grid(char ***tileTab, int tiles)
- * {
- * int i;
- *
- 	while (i < tiles)
-	{
-	}
-}*/
+
+char	**create_grid(int tiles)
+{
+	static int	gridSize;
+	char		**tab;
+
+	tab = NULL;
+	if (gridSize == 0)
+		gridSize = ft_sqrt(tiles * 4);
+	else
+		gridSize += 1;
+	return (tab);
+}
 
 void	show_piece(char **tile)
 {
@@ -46,7 +50,7 @@ char	**move_upper_left(char **tile)
 	char	**temp;
 
 	temp = tile;
-	while (tile[0][0] == '.' && tile[1][0] == '.' && tile[2][0] == '.'
+	while (tile[0][0] == '.' && tile[1][0] == '.' && tile[2][0] == '.' 
 			&& tile[3][0] == '.')
 	{
 		y = 0;
@@ -62,7 +66,7 @@ char	**move_upper_left(char **tile)
 			y++;
 		}
 	}
-	while (tile[0][0] == '.' && tile[0][1] == '.' && tile[0][2] == '.'
+	while (tile[0][0] == '.' && tile[0][1] == '.' && tile[0][2] == '.' 
 			&& tile[0][3] == '.')
 	{
 		x = 0;
@@ -85,7 +89,7 @@ char	**move_upper_left(char **tile)
 int		count_connections(char **tile, int y, int x)
 {
 	int count;
-
+	
 	count = 0;
 	if (y - 1 != -1 && tile[y - 1][x] != '.')
 		count++;
@@ -160,76 +164,76 @@ char	**fill_piece(char *buffer)
 }
 
 //check la validite du buffer et renvoie le nombre de tetriminos trouves ou -1 si erreur
-//int		is_valid(char *buffer, int buflen)
-//{
-//	int len;
-//		int i;
-//			int lnum;
-//				int blocs;
-//
-//					i = 0;
-//						lnum = 1;
-//							blocs = 0;
-//								while (i < buflen)
-//									{
-//											len = 0;
-//													while (buffer[i] != '\n' && buffer[i] != '\0')
-//															{
-//																		if (buffer[i] == '#')
-//																						blocs++;
-//																									i++;
-//																												len++;
-//																														}
-//																																if ((lnum % 5 == 0 && len != 0) || (lnum % 5 == 0 && blocs != 4)
-//																																			   	|| (lnum % 5 != 0 && len != 4))
-//																																			   				return (-1);
-//																																			   						if (lnum % 5 == 0)
-//																																			   									blocs = 0;
-//																																			   											lnum++;
-//																																			   													i++;
-//																																			   														}
-//																																			   															return ((lnum + 1) / 5);
-//																																			   															}
-//
-//																																			   															//rempli le buffer grace au fd
-//																																			   															int		print_tile(fd)
-//																																			   															{
-//																																			   																int		i;
-//																																			   																	int		j;
-//																																			   																		int		tiles;
-//																																			   																			char	*buffer;
-//																																			   																				char 	***test;
-//
-//																																			   																					j = 0;
-//																																			   																						if (!(buffer = (char*)malloc(sizeof(char) * (BUFF_SIZE + 1))) ||
-//																																			   																									!(test = (char***)malloc(sizeof(char**) * 3)))
-//																																			   																											return (-1);
-//																																			   																												i = read(fd, buffer, BUFF_SIZE);
-//																																			   																													if ((tiles = is_valid(buffer, i)) == -1)
-//																																			   																															return (-1);
-//																																			   																																while (j < tiles)
-//																																			   																																	{
-//																																			   																																			if (!(test[j] = (char**)malloc(sizeof(char*) * 4)))
-//																																			   																																						return (-1);
-//																																			   																																								test[j] = fill_piece(buffer);
-//																																			   																																										if (get_connections(test[j]) != 1)
-//																																			   																																													return (-1);
-//																																			   																																															j++;
-//																																			   																																																}
-//																																			   																																																	return (0);
-//																																			   																																																	}
-//
-//																																			   																																																	int		main(int argc, char *argv[])
-//																																			   																																																	{
-//																																			   																																																		int	fd;
-//
-//																																			   																																																			if (argc == 2)
-//																																			   																																																				{
-//																																			   																																																						printf("Reading \"%s\".\n", argv[1]);
-//																																			   																																																								fd = open(argv[1], O_RDONLY);
-//																																			   																																																										if (print_tile(fd) == -1)
-//																																			   																																																													ft_putstr("Erreur.\n");
-//																																			   																																																														}
-//																																			   																																																															else
-//																																			   																																																																	ft_putstr("usage: ./fillit source_file");
-//																																			   																																																																	}
+int		is_valid(char *buffer, int buflen)
+{
+	int len;
+	int i;
+	int lnum;
+	int blocs;
+
+	i = 0;
+	lnum = 1;
+	blocs = 0;
+	while (i < buflen)
+	{
+		len = 0;
+		while (buffer[i] != '\n' && buffer[i] != '\0')
+		{
+			if (buffer[i] == '#')
+				blocs++;
+			i++;
+			len++;
+		}
+		if ((lnum % 5 == 0 && len != 0) || (lnum % 5 == 0 && blocs != 4)
+			   	|| (lnum % 5 != 0 && len != 4))
+			return (-1);
+		if (lnum % 5 == 0)
+			blocs = 0;
+		lnum++;
+		i++;
+	}
+	return ((lnum + 1) / 5);
+}
+
+//rempli le buffer grace au fd
+int		print_tile(fd)
+{
+	int		i;
+	int		j;
+	int		tiles;
+	char	*buffer;
+	char 	***test;
+
+	j = 0;
+	if (!(buffer = (char*)malloc(sizeof(char) * (BUFF_SIZE + 1))) || 
+			!(test = (char***)malloc(sizeof(char**) * 3)))
+		return (-1);
+	i = read(fd, buffer, BUFF_SIZE);
+	if ((tiles = is_valid(buffer, i)) == -1)
+		return (-1);
+	while (j < tiles)
+	{
+		if (!(test[j] = (char**)malloc(sizeof(char*) * 4)))
+			return (-1);
+		test[j] = fill_piece(buffer);
+		if (get_connections(test[j]) != 1)
+			return (-1);
+		j++;
+	}
+	return (0);
+}
+
+int		main(int argc, char *argv[])
+{
+	int	fd;
+
+	if (argc == 2)
+	{
+		printf("Reading \"%s\".\n", argv[1]);
+		fd = open(argv[1], O_RDONLY);
+		if (print_tile(fd) == -1)
+			ft_putstr("Erreur.\n");
+	}
+	else
+		ft_putstr("usage: ./fillit source_file");
+}
