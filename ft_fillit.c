@@ -6,7 +6,7 @@
 /*   By: spuisais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 11:17:22 by spuisais          #+#    #+#             */
-/*   Updated: 2019/01/10 13:27:38 by spuisais         ###   ########.fr       */
+/*   Updated: 2019/01/10 14:57:36 by vrobin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,19 @@
 #include <stdio.h>
 #include <fcntl.h>
 
-void	osef(char **tab, int size);
+/* Marche pas avec beaucoups de tuiles
+*/ 
 
-void	clear(char **tab, int size, int current)
+void	aff_tetro(char **tab, int size) // norme
+{
+	int i;
+
+	i = 0;
+	while (i < size)
+		ft_putendl(tab[i++]);
+}
+
+void	clear(char **tab, int size, int current) // norme
 {
 	int i;
 	int j;
@@ -36,7 +46,7 @@ void	clear(char **tab, int size, int current)
 	}
 }
 
-void	place_tile(char **tab, char **tile, int y, int x)
+void	place_tile(char **tab, char **tile, int y, int x) // norme
 {
 	int tilex;
 	int tiley;
@@ -55,7 +65,7 @@ void	place_tile(char **tab, char **tile, int y, int x)
 	}
 }
 
-int		check_spot(char **tab, char **tile, int y, int x, int size)
+int		check_spot(char **tab, char **tile, int y, int x, int size) // 5 parametres
 {
 	int tilex;
 	int tiley;
@@ -79,18 +89,7 @@ int		check_spot(char **tab, char **tile, int y, int x, int size)
 	return (0);
 }
 
-void	osef(char **tab, int size)
-{
-	int i = 0;
-
-	while (i < size)
-	{
-		ft_putstr(tab[i]);
-		ft_putchar('\n');
-		i++;
-	}
-}
-
+//27 lignes + trop de parametres
 int		place_tiles(int tiles, char **tab, int size, char ***tile, int current)
 {
 	int	x;
@@ -99,7 +98,7 @@ int		place_tiles(int tiles, char **tab, int size, char ***tile, int current)
 	y = 0;
 	if (current == tiles)
 	{
-		osef(tab, size);
+		aff_tetro(tab, size);
 		return (1);
 	}
 	while (y < size)
@@ -122,47 +121,38 @@ int		place_tiles(int tiles, char **tab, int size, char ***tile, int current)
 	return (0);
 }
 
-char	**create_grid(int tiles, int *size)
+char	**create_grid(int tiles, int *size) // 29 lignes + 2 mallocs a free
 {
-	static int	gridSize;
+	static int	gridsize;
 	char		**tab;
 	int			i;
-	int			j;
+	int			j = 0;
 
 	i = 1;
-	if (gridSize == 0)
-	{
+	if (gridsize == 0)
 		while (i * i < (tiles * 4))
-			i++;
-		gridSize = i;
-	}
+			gridsize = i++;
 	else
-		gridSize += 1;
-	*size = gridSize;
-	if (!(tab = (char**)malloc(sizeof(char*) * gridSize)))
+		gridsize += 1;
+	*size = gridsize;
+	if (!(tab = (char**)malloc(sizeof(char*) * gridsize)))
 		return (NULL);
 	i = 0;
-	while (i < gridSize)
-	{
-		if (!(tab[i] = (char*)malloc(sizeof(char) * gridSize)))
+	while (i < gridsize)
+		if (!(tab[i++] = ft_strnew(gridsize)))
 			return (NULL);
-		i++;
-	}
 	i = 0;
 	while (i < *size)
 	{
 		j = 0;
 		while (j < *size)
-		{
-			tab[i][j] = '.';
-			j++;
-		}
+			tab[i][j++] = '.';
 		i++;
 	}
 	return (tab);
 }
 
-char	**move_upper_left(char **tile)
+char	**move_upper_left(char **tile) // 37 lignes
 {
 	int		y;
 	int		x;
@@ -204,10 +194,10 @@ char	**move_upper_left(char **tile)
 	return (tile);
 }
 
-int		count_connections(char **tile, int y, int x)
+int		count_connections(char **tile, int y, int x) // norme
 {
 	int count;
-	
+
 	count = 0;
 	if (y - 1 != -1 && tile[y - 1][x] != '.')
 		count++;
@@ -220,7 +210,7 @@ int		count_connections(char **tile, int y, int x)
 	return (count);
 }
 
-int		get_connections(char **tile)
+int		get_connections(char **tile) // norme
 {
 	int connections;
 	int y;
@@ -244,7 +234,7 @@ int		get_connections(char **tile)
 	return (0);
 }
 
-char	**fill_piece(char *buffer)
+char	**fill_piece(char *buffer) // 32 lignes + 2 mallocs a free
 {
 	static char	character;
 	static int	i;
@@ -261,16 +251,15 @@ char	**fill_piece(char *buffer)
 	y = 0;
 	while (y < 4)
 	{
-		if (!(piece_tab[y] = (char*)malloc(sizeof(char) * 4)))
+		if (!(piece_tab[y] = ft_strnew(4)))
 			return (NULL);
 		x = 0;
 		while (x < 4)
 		{
 			if (buffer[i] == '#')
-				piece_tab[y][x] = character;
+				piece_tab[y][x++] = character;
 			else
-				piece_tab[y][x] = buffer[i];
-			x++;
+				piece_tab[y][x++] = buffer[i];
 			i++;
 		}
 		y++;
@@ -281,8 +270,7 @@ char	**fill_piece(char *buffer)
 	return (piece_tab);
 }
 
-//check la validite du buffer et renvoie le nombre de tetriminos trouves ou -1 si erreur
-int		is_valid(char *buffer, int buflen)
+int		is_valid(char *buffer, int buflen) // norme
 {
 	int len;
 	int i;
@@ -297,23 +285,20 @@ int		is_valid(char *buffer, int buflen)
 		len = 0;
 		while (buffer[i] != '\n' && buffer[i] != '\0')
 		{
-			if (buffer[i] == '#')
+			if (buffer[i++] == '#')
 				blocs++;
-			i++;
 			len++;
 		}
 		if ((lnum % 5 == 0 && len != 0) || (lnum % 5 == 0 && blocs != 4)
-			   	|| (lnum % 5 != 0 && len != 4))
+				|| (lnum % 5 != 0 && len != 4))
 			return (-1);
-		if (lnum % 5 == 0)
+		if (lnum++ % 5 == 0)
 			blocs = 0;
-		lnum++;
 		i++;
 	}
 	return ((lnum + 1) / 5);
 }
 
-//rempli le buffer grace au fd
 int		print_tile(fd)
 {
 	int		i;
@@ -325,7 +310,7 @@ int		print_tile(fd)
 	char	**grid;
 
 	j = 0;
-	if (!(buffer = (char*)malloc(sizeof(char) * (BUFF_SIZE + 1))) || 
+	if (!(buffer = ft_strnew(BUFF_SIZE + 1)) || 
 			!(test = (char***)malloc(sizeof(char**) * 3)))
 		return (-1);
 	i = read(fd, buffer, BUFF_SIZE);
@@ -336,9 +321,8 @@ int		print_tile(fd)
 		if (!(test[j] = (char**)malloc(sizeof(char*) * 4)))
 			return (-1);
 		test[j] = fill_piece(buffer);
-		if (get_connections(test[j]) != 1)
+		if (get_connections(test[j++]) != 1)
 			return (-1);
-		j++;
 	}
 	grid = create_grid(tiles, &size);
 	if (place_tiles(tiles, grid, size, test, 0) == 1)
@@ -361,7 +345,7 @@ int		main(int argc, char *argv[])
 		printf("Reading \"%s\".\n", argv[1]);
 		fd = open(argv[1], O_RDONLY);
 		if (print_tile(fd) == -1)
-			ft_putstr("Erreur.\n");
+			ft_putstr("Erreur\n");
 	}
 	else
 		ft_putstr("usage: ./fillit source_file");
