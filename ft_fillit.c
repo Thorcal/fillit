@@ -6,41 +6,160 @@
 /*   By: spuisais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 11:17:22 by spuisais          #+#    #+#             */
-/*   Updated: 2018/12/18 12:04:44 by spuisais         ###   ########.fr       */
+/*   Updated: 2019/01/10 13:27:38 by spuisais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "libft/libft.h"
 #include "libft/get_next_line.h"
 #include <stdio.h>
 #include <fcntl.h>
 
-char	**create_grid(int tiles)
+void	osef(char **tab, int size);
+
+void	clear(char **tab, int size, int current)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < size)
+	{
+		j = 0;
+		while (j < size)
+		{
+			if (tab[i][j] == 'A' + current)
+				tab[i][j] = '.';
+			j++;
+		}
+		i++;
+	}
+}
+
+void	place_tile(char **tab, char **tile, int y, int x)
+{
+	int tilex;
+	int tiley;
+
+	tiley = 0;
+	while (tiley < 4)
+	{
+		tilex = 0;
+		while (tilex < 4)
+		{
+			if (tile[tiley][tilex] != '.')
+				tab[y + tiley][x + tilex] = tile[tiley][tilex];
+			tilex++;
+		}
+		tiley++;
+	}
+}
+
+int		check_spot(char **tab, char **tile, int y, int x, int size)
+{
+	int tilex;
+	int tiley;
+	int ok;
+
+	tiley = 0;
+	ok = 0;
+	while (tiley < 4 && y + tiley < size)
+	{
+		tilex = 0;
+		while (tilex < 4 && x + tilex < size)
+		{
+			if (tab[y + tiley][x + tilex] == '.' && tile[tiley][tilex] != '.')
+				ok++;
+			tilex++;
+		}
+		tiley++;
+	}
+	if (ok == 4)
+		return (1);
+	return (0);
+}
+
+void	osef(char **tab, int size)
+{
+	int i = 0;
+
+	while (i < size)
+	{
+		ft_putstr(tab[i]);
+		ft_putchar('\n');
+		i++;
+	}
+}
+
+int		place_tiles(int tiles, char **tab, int size, char ***tile, int current)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	if (current == tiles)
+	{
+		osef(tab, size);
+		return (1);
+	}
+	while (y < size)
+	{
+		x = 0;
+		while (x < size)
+		{
+			if (check_spot(tab, tile[current], y, x, size) == 1)
+			{
+				place_tile(tab, tile[current], y, x);
+				if (place_tiles(tiles, tab, size, tile, current + 1) == 1)
+					return (1);
+				else
+					clear(tab, size, current);
+			}
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}
+
+char	**create_grid(int tiles, int *size)
 {
 	static int	gridSize;
 	char		**tab;
+	int			i;
+	int			j;
 
-	tab = NULL;
+	i = 1;
 	if (gridSize == 0)
-		gridSize = ft_sqrt(tiles * 4);
+	{
+		while (i * i < (tiles * 4))
+			i++;
+		gridSize = i;
+	}
 	else
 		gridSize += 1;
-	return (tab);
-}
-
-void	show_piece(char **tile)
-{
-	int y;
-
-	y = 0;
-	ft_putstr("Show piece:\n");
-	while (y < 4)
+	*size = gridSize;
+	if (!(tab = (char**)malloc(sizeof(char*) * gridSize)))
+		return (NULL);
+	i = 0;
+	while (i < gridSize)
 	{
-		ft_putstr(tile[y]);
-		ft_putchar('\n');
-		y++;
+		if (!(tab[i] = (char*)malloc(sizeof(char) * gridSize)))
+			return (NULL);
+		i++;
 	}
+	i = 0;
+	while (i < *size)
+	{
+		j = 0;
+		while (j < *size)
+		{
+			tab[i][j] = '.';
+			j++;
+		}
+		i++;
+	}
+	return (tab);
 }
 
 char	**move_upper_left(char **tile)
@@ -82,7 +201,6 @@ char	**move_upper_left(char **tile)
 			x++;
 		}
 	}
-	show_piece(tile);
 	return (tile);
 }
 
@@ -201,8 +319,10 @@ int		print_tile(fd)
 	int		i;
 	int		j;
 	int		tiles;
+	int		size;
 	char	*buffer;
 	char 	***test;
+	char	**grid;
 
 	j = 0;
 	if (!(buffer = (char*)malloc(sizeof(char) * (BUFF_SIZE + 1))) || 
@@ -220,6 +340,15 @@ int		print_tile(fd)
 			return (-1);
 		j++;
 	}
+	grid = create_grid(tiles, &size);
+	if (place_tiles(tiles, grid, size, test, 0) == 1)
+		return (1);
+	grid = create_grid(tiles, &size);
+	if (place_tiles(tiles, grid, size, test, 0) == 1)
+		return (1);
+	grid = create_grid(tiles, &size);
+	if (place_tiles(tiles, grid, size, test, 0) == 1)
+		return (1);
 	return (0);
 }
 
