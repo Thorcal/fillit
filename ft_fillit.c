@@ -6,7 +6,7 @@
 /*   By: spuisais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 11:17:22 by spuisais          #+#    #+#             */
-/*   Updated: 2019/01/10 14:57:36 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/01/12 11:23:40 by vrobin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 
-/* Marche pas avec beaucoups de tuiles
+/* Marche pas avec + de 5 tuiles
 */ 
 
 void	aff_tetro(char **tab, int size) // norme
@@ -121,25 +121,19 @@ int		place_tiles(int tiles, char **tab, int size, char ***tile, int current)
 	return (0);
 }
 
-char	**create_grid(int tiles, int *size) // 29 lignes + 2 mallocs a free
+char	**create_grid(int *size) // 29 lignes + 2 mallocs a free
 {
-	static int	gridsize;
 	char		**tab;
 	int			i;
-	int			j = 0;
+	int			j;
 
-	i = 1;
-	if (gridsize == 0)
-		while (i * i < (tiles * 4))
-			gridsize = i++;
-	else
-		gridsize += 1;
-	*size = gridsize;
-	if (!(tab = (char**)malloc(sizeof(char*) * gridsize)))
+	j = 0;
+	i = *size;
+	if (!(tab = (char**)malloc(sizeof(char*) * *size)))
 		return (NULL);
 	i = 0;
-	while (i < gridsize)
-		if (!(tab[i++] = ft_strnew(gridsize)))
+	while (i < *size)
+		if (!(tab[i++] = ft_strnew(*size)))
 			return (NULL);
 	i = 0;
 	while (i < *size)
@@ -324,15 +318,14 @@ int		print_tile(fd)
 		if (get_connections(test[j++]) != 1)
 			return (-1);
 	}
-	grid = create_grid(tiles, &size);
-	if (place_tiles(tiles, grid, size, test, 0) == 1)
-		return (1);
-	grid = create_grid(tiles, &size);
-	if (place_tiles(tiles, grid, size, test, 0) == 1)
-		return (1);
-	grid = create_grid(tiles, &size);
-	if (place_tiles(tiles, grid, size, test, 0) == 1)
-		return (1);
+	size = high_sqrt(tiles * 4);
+	grid = create_grid(&size);
+	printf("size %d\n",size);
+	while (place_tiles(tiles, grid, size, test, 0) != 1)
+	{
+		size += 1;
+		grid = create_grid(&size);
+	}
 	return (0);
 }
 
