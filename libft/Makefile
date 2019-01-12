@@ -6,7 +6,7 @@
 #    By: spuisais <spuisais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/13 15:01:00 by spuisais          #+#    #+#              #
-#    Updated: 2018/12/03 17:19:59 by spuisais         ###   ########.fr        #
+#    Updated: 2019/01/12 10:10:10 by vrobin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,6 +77,7 @@ SRCS = ft_memset.c		\
 	   ft_lstmap.c		\
 	   ft_print_words_table.c \
 	   ft_sqrt.c		\
+	   high_sqrt.c
 
 OBJS = 	$(SRCS:.c=.o)
 
