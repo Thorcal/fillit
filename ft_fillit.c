@@ -6,7 +6,7 @@
 /*   By: spuisais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 11:17:22 by spuisais          #+#    #+#             */
-/*   Updated: 2019/01/14 11:32:46 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/01/14 13:47:11 by vrobin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	aff_test(char ***test, int size)
 
 }
 
-//27 lignes + trop de parametres
+//27 lignes + trop de parametres + pb condition d'arret
 int		place_tiles(int tiles, char **tab, int size, char ***tile, int current)
 {
 	int	x;
@@ -135,17 +135,20 @@ int		place_tiles(int tiles, char **tab, int size, char ***tile, int current)
 	return (0);
 }
 
-char	**create_grid(int size) // 29 lignes + 2 mallocs a free
+char	**create_grid(int size) // 29 lignes
 {
 	char		**tab;
+	char		**tmp;
 	int			i;
 	int			j;
 
 	j = 0;
+	tmp = NULL;
 	i = size;
 	if (!(tab = (char**)malloc(sizeof(char*) * size)))
 		return (NULL);
 	i = 0;
+	tab[size] = NULL;
 	while (i < size)
 		if (!(tab[i++] = ft_strnew(size)))
 			return (NULL);
@@ -157,7 +160,9 @@ char	**create_grid(int size) // 29 lignes + 2 mallocs a free
 			tab[i][j++] = '.';
 		i++;
 	}
-	return (tab);
+	tmp = tab;
+	free(tab);
+	return (tmp);
 }
 
 char	**move_upper_left(char **tile) // 37 lignes
@@ -244,18 +249,17 @@ int		get_connections(char **tile) // norme
 
 char	**fill_piece(char *buffer) // 32 lignes + 2 mallocs a free
 {
-	static char	character;
-	static int	i;
+	static char	character = 'A';
+	static int	i = 0;
 	int			x;
 	int			y;
 	char		**piece_tab;
 
-	if (!character)
-		character = 'A';
-	else
+	if (i != 0)
 		character += 1;
-	if (!(piece_tab = (char**)malloc(sizeof(char*) * 4)))
+	if (!(piece_tab = (char**)malloc(sizeof(char*) * 3)))
 		return (NULL);
+	piece_tab[3] = NULL;
 	y = 0;
 	while (y < 4)
 	{
@@ -313,14 +317,15 @@ int		print_tile(fd)
 	int		j;
 	int		tiles;
 	int		size;
-	char	*buffer;
-	char 	***test;
+	char	*buffer; //free
+	char 	***test; //free
 	char	**grid;
 
 	j = 0;
 	if (!(buffer = ft_strnew(BUFF_SIZE + 1)) || 
 			!(test = (char***)malloc(sizeof(char**) * 3)))
 		return (-1);
+	test[3 + 1] = NULL;
 	i = read(fd, buffer, BUFF_SIZE);
 	if ((tiles = is_valid(buffer, i)) == -1)
 		return (-1);
@@ -328,19 +333,22 @@ int		print_tile(fd)
 	{
 		if (!(test[j] = (char**)malloc(sizeof(char*) * 4)))
 			return (-1);
+		test[j][4] = NULL;
 		test[j] = fill_piece(buffer);
-		if (get_connections(test[j++]) != 1)
+		if (get_connections(test[j]) != 1)
 			return (-1);
+		j++;
 	}
 	size = high_sqrt(tiles * 4);
 	grid = create_grid(size);
 	while (place_tiles(tiles, grid, size, test, 0) != 1)
 	{
-		ft_memdel((void**)grid);
-		printf("size %d\n",size);
 		size += 1;
+		ft_memdel((void*)grid);
 		grid = create_grid(size);
 	}
+	free(test);
+	free(buffer);
 	return (0);
 }
 
