@@ -6,7 +6,7 @@
 /*   By: spuisais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 11:17:22 by spuisais          #+#    #+#             */
-/*   Updated: 2019/01/14 15:01:10 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/01/14 15:50:37 by vrobin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,14 +248,13 @@ int		get_connections(char **tile) // norme
 
 char	**fill_piece(char *buffer) // 32 lignes + 2 mallocs a free
 {
-	static char	character = 'A';
+	static char	character = '@';
 	static int	i = 0;
 	int			x;
 	int			y;
 	char		**piece_tab;
 
-	if (i != 0)
-		character += 1;
+	character += 1;
 	if (!(piece_tab = (char**)malloc(sizeof(char*) * 3)))
 		return (NULL);
 	piece_tab[3] = NULL;
@@ -321,13 +320,14 @@ int		print_tile(fd)
 	char	**grid;
 
 	j = 0;
-	if (!(buffer = ft_strnew(BUFF_SIZE + 1)) || 
-			!(test = (char***)malloc(sizeof(char**) * 3)))
+	if (!(buffer = ft_strnew(BUFF_SIZE + 1)))
 		return (-1);
-	test[3 + 1] = NULL;
 	i = read(fd, buffer, BUFF_SIZE);
 	if ((tiles = is_valid(buffer, i)) == -1)
 		return (-1);
+	if (!(test = (char***)malloc(sizeof(char**) * tiles + 1)))
+		return (-1);
+	test[tiles] = NULL;
 	while (j < tiles)
 	{
 		if (!(test[j] = (char**)malloc(sizeof(char*) * 4)))
