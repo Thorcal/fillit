@@ -6,7 +6,7 @@
 /*   By: spuisais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 11:17:22 by spuisais          #+#    #+#             */
-/*   Updated: 2019/01/14 13:47:11 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/01/14 15:01:10 by vrobin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,6 @@ void	aff_test(char ***test, int size)
 
 }
 
-//27 lignes + trop de parametres + pb condition d'arret
 int		place_tiles(int tiles, char **tab, int size, char ***tile, int current)
 {
 	int	x;

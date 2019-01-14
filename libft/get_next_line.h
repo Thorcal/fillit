@@ -6,13 +6,13 @@
 /*   By: spuisais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 15:28:35 by spuisais          #+#    #+#             */
-/*   Updated: 2018/12/10 15:08:53 by spuisais         ###   ########.fr       */
+/*   Updated: 2019/01/14 12:01:38 by vrobin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 130
+# define BUFF_SIZE 550
 # include "libft.h"
 # include <sys/types.h>
 # include <sys/uio.h>
