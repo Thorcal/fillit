@@ -6,7 +6,7 @@
 /*   By: spuisais <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/18 11:17:22 by spuisais          #+#    #+#             */
-/*   Updated: 2019/01/12 11:23:40 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/01/14 11:32:46 by vrobin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 #include <stdio.h>
 #include <fcntl.h>
 
-/* Marche pas avec + de 5 tuiles
+/* Marche avec + de 5 tuiles mais rentre dans la stack
+ * pb -> buff_size
 */ 
 
 void	aff_tetro(char **tab, int size) // norme
@@ -89,6 +90,19 @@ int		check_spot(char **tab, char **tile, int y, int x, int size) // 5 parametres
 	return (0);
 }
 
+void	aff_test(char ***test, int size)
+{
+	int i;
+
+	i = 0;
+	while (i < size)
+	{
+		ft_putendl(*test[i]);
+		i++;
+	}
+
+}
+
 //27 lignes + trop de parametres
 int		place_tiles(int tiles, char **tab, int size, char ***tile, int current)
 {
@@ -121,25 +135,25 @@ int		place_tiles(int tiles, char **tab, int size, char ***tile, int current)
 	return (0);
 }
 
-char	**create_grid(int *size) // 29 lignes + 2 mallocs a free
+char	**create_grid(int size) // 29 lignes + 2 mallocs a free
 {
 	char		**tab;
 	int			i;
 	int			j;
 
 	j = 0;
-	i = *size;
-	if (!(tab = (char**)malloc(sizeof(char*) * *size)))
+	i = size;
+	if (!(tab = (char**)malloc(sizeof(char*) * size)))
 		return (NULL);
 	i = 0;
-	while (i < *size)
-		if (!(tab[i++] = ft_strnew(*size)))
+	while (i < size)
+		if (!(tab[i++] = ft_strnew(size)))
 			return (NULL);
 	i = 0;
-	while (i < *size)
+	while (i < size)
 	{
 		j = 0;
-		while (j < *size)
+		while (j < size)
 			tab[i][j++] = '.';
 		i++;
 	}
@@ -319,12 +333,13 @@ int		print_tile(fd)
 			return (-1);
 	}
 	size = high_sqrt(tiles * 4);
-	grid = create_grid(&size);
-	printf("size %d\n",size);
+	grid = create_grid(size);
 	while (place_tiles(tiles, grid, size, test, 0) != 1)
 	{
+		ft_memdel((void**)grid);
+		printf("size %d\n",size);
 		size += 1;
-		grid = create_grid(&size);
+		grid = create_grid(size);
 	}
 	return (0);
 }
