@@ -6,7 +6,7 @@
 /*   By: vrobin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 10:58:45 by vrobin            #+#    #+#             */
-/*   Updated: 2019/01/15 14:24:40 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/01/15 14:50:54 by vrobin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "fcntl.h"
 # include <stdio.h>
 
+void	aff_tetro(char	**tab, int size);
 int		print_tile(int fd);
 int		main(int argc, char **argv);
 int		is_valid(char *buffer, int buflen);
@@ -24,5 +25,4 @@ int		get_connections(char **tile);
 int		place_tiles(int tiles, char **tab, int size, char ***tile, int current);
 char	**create_grid(int size);
 int		check_spot(char **tab, char **tile, int x, int y, int size);
-void	aff_tetro(char	**tab, int size);
 #endif
