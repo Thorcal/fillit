@@ -6,19 +6,16 @@
 /*   By: vrobin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 11:01:13 by vrobin            #+#    #+#             */
-/*   Updated: 2019/01/15 13:54:59 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/01/15 14:15:15 by vrobin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void	move_up(char ***tile, char ***temp)
+char	**move_up(char **tile, char **temp, int x, int y)
 {
-	int x;
-	int y;
-
-	while (*tile[0][0] == '.' && *tile[0][1] == '.' && *tile[0][2] == '.'
-			&& *tile[0][3] == '.')
+	while (tile[0][0] == '.' && tile[0][1] == '.' && tile[0][2] == '.'
+			&& tile[0][3] == '.')
 	{
 		x = 0;
 		while (x < 4)
@@ -26,13 +23,14 @@ void	move_up(char ***tile, char ***temp)
 			y = 0;
 			while (y < 3)
 			{
-				*tile[y][x] = *temp[y + 1][x];
+				tile[y][x] = temp[y + 1][x];
 				y++;
 			}
-			*tile[y][x] = '.';
+			tile[y][x] = '.';
 			x++;
 		}
 	}
+	return (tile);
 }
 
 char	**move_upper_left(char **tile)
@@ -58,7 +56,7 @@ char	**move_upper_left(char **tile)
 			y++;
 		}
 	}
-	move_up(&tile, &temp);
+	tile = move_up(tile, temp, x, y);
 	return (tile);
 }
 
@@ -129,9 +127,9 @@ int		print_tile(fd)
 	while (place_tiles(tiles, grid, size, test, 0) != 1)
 	{
 		size += 1;
+		ft_memdel((void**)grid);
 		grid = create_grid(size);
 	}
-	ft_memdel((void**)grid);
 	free(test);
 	free(buffer);
 	return (0);

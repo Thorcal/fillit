@@ -6,7 +6,7 @@
 /*   By: vrobin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 11:57:35 by vrobin            #+#    #+#             */
-/*   Updated: 2019/01/15 12:19:19 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/01/15 14:08:00 by vrobin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,20 @@ char	**create_grid(int size)
 
 void	put_tile(char **tab, char **tile, int x, int y)
 {
-	int tilex;
-	int tiley;
+	int tile_x;
+	int tile_y;
 
-	tiley = 0;
-	while (tiley < 4)
+	tile_y = 0;
+	while (tile_y < 4)
 	{
-		tilex = 0;
-		while (tilex < 4)
+		tile_x = 0;
+		while (tile_x < 4)
 		{
-			if (tile[tiley][tilex] != '.')
-				tab[y + tiley][x + tilex] = tile[tiley][tilex];
-			tilex++;
+			if (tile[tile_y][tile_x] != '.')
+				tab[y + tile_y][x + tile_x] = tile[tile_y][tile_x];
+			tile_x++;
 		}
-		tiley++;
+		tile_y++;
 	}
 }
 
