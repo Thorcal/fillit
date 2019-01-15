@@ -6,7 +6,7 @@
 /*   By: vrobin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 10:58:45 by vrobin            #+#    #+#             */
-/*   Updated: 2019/01/15 12:30:52 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/01/15 14:24:40 by vrobin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "libft/get_next_line.h"
 # include "libft/libft.h"
 # include "fcntl.h"
+# include <stdio.h>
 
 int		print_tile(int fd);
 int		main(int argc, char **argv);

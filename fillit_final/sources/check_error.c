@@ -6,9 +6,11 @@
 /*   By: vrobin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 11:42:12 by vrobin            #+#    #+#             */
-/*   Updated: 2019/01/15 12:24:33 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/01/15 14:25:49 by vrobin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "fillit.h"
 
 int		check_spot(char **tab, char **tile, int x, int y, int size)
 {

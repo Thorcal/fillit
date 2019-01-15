@@ -6,7 +6,7 @@
 /*   By: vrobin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 11:01:13 by vrobin            #+#    #+#             */
-/*   Updated: 2019/01/15 14:15:15 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/01/15 14:30:15 by vrobin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ int		print_tile(fd)
 	while (place_tiles(tiles, grid, size, test, 0) != 1)
 	{
 		size += 1;
-		ft_memdel((void**)grid);
 		grid = create_grid(size);
 	}
 	free(test);
