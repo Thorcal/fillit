@@ -4,11 +4,11 @@ CFLAGS = -Wall -Wextra -Werror
 
 HEADERS = fillit.h
 
-SRCS = main.c \
+SRCS = sources.c \
+	   main.c \
 	   fillit.c \
 	   algo.c \
 	   check_error.c \
-	   aff_tetro.c
 
 NAME = fillit
 
@@ -16,7 +16,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJS)
 		make -C libft/
-		$(CC) $(CFLAGS) -g -g3 -o $(NAME) $(SRCS) -L. libft/libft.a
+		$(CC) $(CFLAGS) -o $(NAME) $(SRCS) -L. libft/libft.a
 
 clean :
 		cd libft && make clean

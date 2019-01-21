@@ -6,24 +6,11 @@
 /*   By: vrobin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 12:35:19 by vrobin            #+#    #+#             */
-/*   Updated: 2019/01/21 13:05:16 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/01/21 15:22:56 by vrobin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-
-int		get_size(int tiles)
-{
-	static int	size;
-
-	if (tiles == -1)
-		return (size += 1);
-	if (tiles == 0)
-		return (size);
-	else
-		size = high_sqrt(tiles * 4);
-	return (size);
-}
 
 char	**move_up(char **tile, char **temp, int x, int y)
 {
@@ -107,6 +94,24 @@ char	**fill_piece(char *buffer)
 	return (piece_tab);
 }
 
+int		loop(char ****test, int tiles, char **buffer)
+{
+	int	i;
+
+	i = 0;
+	while (i < tiles)
+	{
+		if (!((*test)[i] = (char**)malloc(sizeof(char*) * 4)))
+			return (-1);
+		(*test)[i][4] = NULL;
+		(*test)[i] = fill_piece(*buffer);
+		if (get_connections((*test)[i]) != 1)
+			return (-1);
+		i++;
+	}
+	return (0);
+}
+
 int		print_tile(int fd)
 {
 	int		i;
@@ -122,18 +127,9 @@ int		print_tile(int fd)
 		return (-1);
 	if (!(test = (char***)malloc(sizeof(char**) * tiles + 1)))
 		return (-1);
+	if (loop(&test, tiles, &buffer) == -1)
+		return (-1);
 	test[tiles] = NULL;
-	i = 0;
-	while (i < tiles)
-	{
-		if (!(test[i] = (char**)malloc(sizeof(char*) * 4)))
-			return (-1);
-		test[i][4] = NULL;
-		test[i] = fill_piece(buffer);
-		if (get_connections(test[i]) != 1)
-			return (-1);
-		i++;
-	}
 	grid = create_grid(get_size(tiles));
 	while (place_tiles(tiles, grid, test, 0) != 1)
 		grid = create_grid(get_size(-1));
