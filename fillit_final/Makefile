@@ -10,22 +10,19 @@ SRCS = main.c \
 	   check_error.c \
 	   aff_tetro.c
 
-OBJS = 	$(SRCS:.c=.o)
-
 NAME = fillit
 
 all : $(NAME)
 
 $(NAME) : $(OBJS)
 		make -C libft/
-		$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L. libft/libft.a
+		$(CC) $(CFLAGS) -g -g3 -o $(NAME) $(SRCS) -L. libft/libft.a
 
 clean :
-		rm *.o
-		rm libft/*.o
+		cd libft && make clean
 
 fclean : clean
 		rm -f $(NAME)
-		rm -f libft/libft.a
+		cd libft && make fclean
 
 re : fclean all

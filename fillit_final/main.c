@@ -6,7 +6,7 @@
 /*   By: vrobin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 11:36:29 by vrobin            #+#    #+#             */
-/*   Updated: 2019/01/15 14:47:43 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/01/21 11:15:43 by vrobin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int		main(int argc, char **argv)
 
 	if (argc == 2)
 	{
-		ft_putstr("Reading ");
-		ft_putendl(argv[1]);
 		fd = open(argv[1], O_RDONLY);
 		if (print_tile(fd) == -1)
 			ft_putendl("error");

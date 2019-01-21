@@ -6,7 +6,7 @@
 /*   By: vrobin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 11:01:13 by vrobin            #+#    #+#             */
-/*   Updated: 2019/01/15 14:47:03 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/01/21 11:12:25 by vrobin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	**fill_piece(char *buffer)
 	return (piece_tab);
 }
 
-int		print_tile(fd)
+int		print_tile(int fd)
 {
 	int		i;
 	int		tiles;

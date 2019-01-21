@@ -6,7 +6,7 @@
 /*   By: vrobin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 11:57:35 by vrobin            #+#    #+#             */
-/*   Updated: 2019/01/15 14:46:50 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/01/21 10:32:10 by vrobin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,24 @@ void	clear(char **tab, int size, int current)
 	}
 }
 
+int		check_aff(int current, int tiles, int size, char **tab)
+{
+	if (current == tiles)
+	{
+		aff_tetro(tab, size);
+		return (1);
+	}
+	return (0);
+}
+
 int		place_tiles(int tiles, char **tab, int size, char ***tile, int current)
 {
 	int	x;
 	int	y;
 
 	y = 0;
-	if (current == tiles)
-	{
-		aff_tetro(tab, size);
+	if (check_aff(current, tiles, size, tab) == 1)
 		return (1);
-	}
 	while (y < size)
 	{
 		x = 0;

@@ -6,7 +6,7 @@
 /*   By: vrobin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 11:42:12 by vrobin            #+#    #+#             */
-/*   Updated: 2019/01/15 14:46:56 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/01/21 11:12:21 by vrobin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int		is_valid(char *buffer, int buflen)
 	i = 0;
 	lnum = 1;
 	blocs = 0;
-	while (i < buflen)
+	while (i <= buflen)
 	{
 		len = 0;
 		while (buffer[i] != '\n' && buffer[i] != '\0')
