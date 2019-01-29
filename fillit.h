@@ -6,7 +6,7 @@
 /*   By: vrobin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 10:58:45 by vrobin            #+#    #+#             */
-/*   Updated: 2019/01/21 15:12:46 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/01/29 16:40:34 by vrobin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "fcntl.h"
 # include <stdio.h>
 
+void	free_blocs_grid(char ****blocs, char ***grid, int tiles);
+char	**move_up(char **tile, char **temp, int x, int y);
 void	aff_tetro(char	**tab, int size);
 int		get_size(int tiles);
 int		print_tile(int fd);

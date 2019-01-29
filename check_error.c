@@ -6,13 +6,13 @@
 /*   By: vrobin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 11:42:12 by vrobin            #+#    #+#             */
-/*   Updated: 2019/01/21 12:38:41 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/01/29 15:17:53 by vrobin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int		check_spot(char **tab, char **tile, int x, int y)
+int				check_spot(char **tab, char **tile, int x, int y)
 {
 	int tile_x;
 	int tile_y;
@@ -37,7 +37,7 @@ int		check_spot(char **tab, char **tile, int x, int y)
 	return (0);
 }
 
-int		count_connections(char **tile, int x, int y)
+static int		count_connections(char **tile, int x, int y)
 {
 	int count;
 
@@ -53,7 +53,7 @@ int		count_connections(char **tile, int x, int y)
 	return (count);
 }
 
-int		get_connections(char **tile)
+int				get_connections(char **tile)
 {
 	int connections;
 	int y;
@@ -77,7 +77,7 @@ int		get_connections(char **tile)
 	return (0);
 }
 
-int		is_valid(char *buffer, int buflen)
+int				is_valid(char *buffer, int buflen)
 {
 	int len;
 	int i;

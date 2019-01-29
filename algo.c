@@ -6,21 +6,19 @@
 /*   By: vrobin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 11:57:35 by vrobin            #+#    #+#             */
-/*   Updated: 2019/01/21 13:56:28 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/01/29 16:03:32 by vrobin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-char	**create_grid(int size)
+char			**create_grid(int size)
 {
 	char	**tab;
-	char	**tmp;
 	int		i;
 	int		j;
 
 	j = 0;
-	tmp = NULL;
 	i = size;
 	if (!(tab = (char**)malloc(sizeof(char*) * size)))
 		return (NULL);
@@ -36,12 +34,11 @@ char	**create_grid(int size)
 			tab[i][j++] = '.';
 		i++;
 	}
-	tmp = tab;
-	free(tab);
-	return (tmp);
+	j = 0;
+	return (tab);
 }
 
-void	put_tile(char **tab, char **tile, int x, int y)
+static void		put_tile(char **tab, char **tile, int x, int y)
 {
 	int tile_x;
 	int tile_y;
@@ -60,7 +57,7 @@ void	put_tile(char **tab, char **tile, int x, int y)
 	}
 }
 
-void	clear(char **tab, int size, int current)
+static void		clear(char **tab, int size, int current)
 {
 	int i;
 	int j;
@@ -79,7 +76,7 @@ void	clear(char **tab, int size, int current)
 	}
 }
 
-int		check_aff(int current, int tiles, char **tab)
+static int		check_aff(int current, int tiles, char **tab)
 {
 	int i;
 
@@ -93,7 +90,7 @@ int		check_aff(int current, int tiles, char **tab)
 	return (0);
 }
 
-int		place_tiles(int tiles, char **tab, char ***tile, int current)
+int				place_tiles(int tiles, char **tab, char ***tile, int current)
 {
 	int	x;
 	int	y;
