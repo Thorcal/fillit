@@ -6,11 +6,11 @@
 /*   By: vrobin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 11:57:35 by vrobin            #+#    #+#             */
-/*   Updated: 2019/01/29 16:03:32 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/02/05 14:59:32 by spuisais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "../inc/fillit.h"
 
 char			**create_grid(int size)
 {

@@ -6,11 +6,11 @@
 /*   By: vrobin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 12:35:19 by vrobin            #+#    #+#             */
-/*   Updated: 2019/01/29 17:12:17 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/02/05 17:19:36 by spuisais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "../inc/fillit.h"
 
 static char		**move_upper_left(char **tile)
 {
@@ -113,7 +113,7 @@ int				print_tile(int fd)
 	if (!(blocs = (char***)malloc(sizeof(char**) * tiles)))
 		return (-1);
 	blocs[tiles] = NULL;
-	if (loop(&blocs, tiles, &buffer) == -1)
+	if (tiles > 26 || loop(&blocs, tiles, &buffer) == -1)
 		return (-1);
 	grid = create_grid(get_size(tiles));
 	while (place_tiles(tiles, grid, blocs, 0) != 1)

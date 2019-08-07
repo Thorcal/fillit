@@ -6,12 +6,13 @@
 /*   By: spuisais <spuisais@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 14:51:42 by spuisais          #+#    #+#             */
-/*   Updated: 2019/01/15 14:44:09 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/02/12 13:27:29 by spuisais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+# define BUFF_SIZE 600
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>

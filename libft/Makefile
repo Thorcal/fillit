@@ -6,7 +6,7 @@
 #    By: spuisais <spuisais@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/13 15:01:00 by spuisais          #+#    #+#              #
-#    Updated: 2019/01/15 14:43:53 by vrobin           ###   ########.fr        #
+#    Updated: 2019/02/12 13:24:25 by spuisais         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,8 +85,8 @@ NAME = libft.a
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	ar rc $(NAME) $(OBJS)
-	ranlib $(NAME)
+	@ar rc $(NAME) $(OBJS)
+	@ranlib $(NAME)
 
 clean :
 	rm -rf *.o

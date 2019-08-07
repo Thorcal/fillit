@@ -6,11 +6,11 @@
 /*   By: vrobin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 14:12:38 by vrobin            #+#    #+#             */
-/*   Updated: 2019/01/29 17:10:15 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/02/05 14:46:14 by spuisais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fillit.h"
+#include "../inc/fillit.h"
 
 int		get_size(int tiles)
 {

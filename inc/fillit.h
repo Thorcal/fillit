@@ -6,14 +6,14 @@
 /*   By: vrobin <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 10:58:45 by vrobin            #+#    #+#             */
-/*   Updated: 2019/01/29 16:40:34 by vrobin           ###   ########.fr       */
+/*   Updated: 2019/02/05 14:56:38 by spuisais         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FILLIT_H
 # define FILLIT_H
-# include "libft/get_next_line.h"
-# include "libft/libft.h"
+# include "../libft/get_next_line.h"
+# include "../libft/libft.h"
 # include "fcntl.h"
 # include <stdio.h>
 
